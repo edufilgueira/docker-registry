@@ -49,55 +49,63 @@ Será necessario altera o seguinte arquivo: “/lib/systemd/system/docker.servic
 
 ```
 vim  lib/systemd/system/docker.service
-ExecStart=/usr/bin/dockerd 
---insecure-registry 192.168.0.1:5000
+ExecStart=/usr/bin/dockerd --insecure-registry 192.168.0.1:5000
 ```
 
 
 Reiniciando o docker
 ```
 systemctl enable docker.service
-
 systemctl restart docker.service
-
 systemctl status docker.service
 ```
 
 
 # 7. Modo de uso 
 
-===== Baixando uma imagem: =====
-//# docker pull mysql:5.7//
+Baixando uma imagem
+```
+docker pull mysql:5.7
+```
 
-===== Visualizado a imagem: =====
-//# docker images//
+Visualizado a imagem
+```
+docker images
+```
 
 mysql		5.7	0d16d0a97dd1	2 weeks	ago	372MB
 
-===== Tageando imagem: =====
+Tageando imagem
+
 As imagens são tageadas usando o seguinte comando:
 docker tar <ID_DA_IMAGEM> <IP>:PORTA/<IMAGEM>:<VERSÃO>
 
-//# docker tag  0d16d0a97dd1 192.168.0.1:5000/mysql:5.7//
+```
+docker tag  0d16d0a97dd1 192.168.0.1:5000/mysql:5.7
+```
 
-===== Enviando uma imagem para o servidor: =====
+Enviando uma imagem para o servidor
 As images são enviadas usando o seguinte comando: 
 docker push <IP>:PORTA/<IMAGEM>:<VERSÃO>
 
-//# docker push 192.168.0.1:5000/mysql:5.7//
+```
+docker push 192.168.0.1:5000/mysql:5.7
+```
 
-===== Baixando uma imagem do servidor =====
+Baixando uma imagem do servidor
 As images são baixadas usando o seguinte comando: 
 docker pull <IP>:PORTA/<IMAGEM>:<VERSÃO>
 
-//# docker pull 192.168.0.1:5000/mysql:5.7//
+```
+docker pull 192.168.0.1:5000/mysql:5.7
+```
 
 
 # 8. Reiniciar o Docker
+
+```
 /etc/init.d/docker restart
-
-
+```
 
 # 9. OBS
 Foi criado um redirecionamento no firewall (pfsense), com o objetivo das Vms de produção usarem o docker registry atraves do seguinte endereço: http://172.24.178.2:5000
-
