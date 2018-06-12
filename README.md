@@ -141,7 +141,7 @@ docker run --p 7000:3000 \
 --name imagem_producao -d 192.168.0.1:5000/imagem_producao
 ```
 
-# Cron para altomatizar periodocamente a aplicação
+# Cron para automatizar periodocamente a aplicação
 
 ```
 #!/bin/bash
