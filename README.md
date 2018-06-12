@@ -45,7 +45,7 @@ docker run -d -p 8080:80 -e ENV_DOCKER_REGISTRY_HOST=192.168.0.1
 ```
 
 # 6. Configurações do lado cliente 
-Será necessario altera o seguinte arquivo: “/lib/systemd/system/docker.service” e adicionar a seguinte entrada:”ExecStart=/usr/bin/docker --insecure-registry 192.168.0.1:5000"
+Será necessario altera o seguinte arquivo: “/lib/systemd/system/docker.service” e adicionar a seguinte entrada:”ExecStart=/usr/bin/dockerd --insecure-registry 192.168.0.1:5000"
 
 ```
 vim  lib/systemd/system/docker.service
