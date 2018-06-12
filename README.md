@@ -14,9 +14,10 @@ A versão utilizada no momento desta instalação foi a versão 18.05.0-ce, buil
 
 
 # 3. Baixando as imagens usadas no Docker Registry
-
-* docker pull registry:2
-* docker pull konradkleine/docker-registry-frontend:v2
+```
+docker pull registry:2
+docker pull konradkleine/docker-registry-frontend:v2
+```
 
 # 4. Criação do diretório de volume
 Para que a imagens seja armazenadas e não sejam perdidas com a deleção do container do docker registry, foi criado o diretório de armazenamento das imagem no seguinte path: “/home/backup/docker/registry”.
@@ -26,8 +27,9 @@ Para que a imagens seja armazenadas e não sejam perdidas com a deleção do con
 Criação do container do Docker Registry (no servidor)
 O container foi criado com os seguintes parâmetros de comando:
 
-//# docker run -d -p 5000:5000 --restart=always --name registry -v /backup/home/docker/registry:/var/lib/registry registry:2//
-
+```
+# docker run -d -p 5000:5000 --restart=always --name registry -v /backup/home/docker/registry:/var/lib/registry registry:2//
+```
 
 # 5. Criação do container da interface grafica do Docker Registry (no servidor)
 Esse container tem como objetivo ter uma melhor visualização das imagens armazenadas no docker registry. Onde o acessor será realizado usando a seguinte url: http://192.168.0.1:8080
