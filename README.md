@@ -15,8 +15,8 @@ A versão utilizada no momento desta instalação foi a versão 18.05.0-ce, buil
 
 # 3. Baixando as imagens usadas no Docker Registry
 
-//# docker pull registry:2//
-//# docker pull konradkleine/docker-registry-frontend:v2//
+docker pull registry:2
+docker pull konradkleine/docker-registry-frontend:v2
 
 # 4. Criação do diretório de volume
 Para que a imagens seja armazenadas e não sejam perdidas com a deleção do container do docker registry, foi criado o diretório de armazenamento das imagem no seguinte path: “/home/backup/docker/registry”.
