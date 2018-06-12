@@ -114,3 +114,48 @@ docker pull 192.168.0.1:5000/mysql:5.7
 
 ## 9. OBS
 Foi criado um redirecionamento no firewall (pfsense), com o objetivo das Vms de produção usarem o docker registry atraves do seguinte endereço: http://172.24.178.2:5000
+
+docker run -p 5432:5432 --name postgresql --restart always -v /SERVICOS/postgresql:/var/lib/postgresql/data -e POSTGRES_PASSWORD=pr89e5p1onjiU -d postgres:9.6
+
+# Levantando as imagens
+
+## Postegres
+```
+docker run -p 5432:5432 --name postgresql --restart always 
+-v /SERVICOS/postgresql:/var/lib/postgresql/data 
+-e POSTGRES_PASSWORD=pr89e5p1onjiU -d postgres:9.6
+```
+
+## Mancache
+```
+docker run -p 11211:11211 --name my-memcache -d memcached
+```
+
+## Aplicação
+```
+docker run --p 7000:3000 \
+-v $(pwd)/SERVICOS/database/database-principal.yml:/usr/src/app/config/database.yml \
+-v $(pwd)/SERVICOS/old_srv_data/srv2/srv/docker/production.rb:/usr/src/config/environments/production.rb \
+-v $(pwd)/SERVICOS/old_srv_data/srv2/srv/docker/system/:/usr/src/public/system/ \
+--env RAILS_RELATIVE_URL_ROOT="/erp" --link my-memcache:memcached --link postgresql:psql \
+--name imagem_producao -d 192.168.0.1:5000/imagem_producao
+```
+
+# Cron para altomatizar periodocamente a aplicação
+
+```
+#!/bin/bash
+echo -n "$(date -R): Checking if we need an update..."
+
+APPNAME=seas_principal7000
+
+docker pull registry.appbridge.space/principal | grep "Status: Downloaded newer image" 
+&& sudo docker stop $APPNAME && sudo docker rm $APPNAME && sudo docker run --name $APPNAME 
+--publish 7000:3000 -v /SERVICOS/old_srv_data/srv2/srv/docker/database-principal.yml:/usr/src/app/config/database.yml 
+-d -v /SERVICOS/old_srv_data/srv2/srv/docker/production.rb:/usr/src/config/environments/production.rb 
+-v /SERVICOS/old_srv_data/srv2/srv/docker/system/:/usr/src/public/system/ 
+--env RAILS_RELATIVE_URL_ROOT="/sigi" --link my-memcache:memcached --link postgresql:psql 
+registry.appbridge.space/principal && 
+docker exec $APPNAME rake db:migrate && docker exec $APPNAME rake assets:precompile
+
+```
