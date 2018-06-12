@@ -12,6 +12,11 @@ Este documento descreve a instalação do docker registry. Software usado no arm
 Esta instalação parte do pressuposto  que o docker esteja já instalado no servidor.
 A versão utilizada no momento desta instalação foi a versão 18.05.0-ce, build f150324
 
+Intalar o docker
+
+```
+curl -sSL https://get.docker.com/ | sh
+```
 
 ## 3. Baixando as imagens usadas no Docker Registry
 
