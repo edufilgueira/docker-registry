@@ -159,3 +159,70 @@ registry.appbridge.space/principal &&
 docker exec $APPNAME rake db:migrate && docker exec $APPNAME rake assets:precompile
 
 ```
+# Comando basicos 
+
+* Instalar Docker
+wget -qO- https://get.docker.com/ | sh
+
+* Entrar no modo iterativo
+docker  exec -it  00be3855d14a /bin/bash
+
+* Sair e derrubar a o container
+exit
+
+* Sair sem derrubar
+Control PQ
+
+* Monitorar a memória
+docker stats
+
+* Salvar e carregar imagens
+docker save memcached > memcached.tar
+docker load --input memcached.tar
+
+* Contanier para imagem
+docker commit 3b64e4b39127 imagemnginx:versao1
+
+* renomear imagem
+docker tag old new:1.0.0
+
+* Renomear imagem
+docker rename my_container my_new_container
+
+* nginx 
+docker run -p 80:80 --name servidornginx -v $(pwd)/angular_app:/usr/share/nginx/html -d  nginx
+
+* levanta um docker-compose
+docker-compose up -d
+
+* derruba um docker-compose
+docker-compose down
+
+* Levanta a aplicação rails
+docker-cedockompose run app bundle exec rails new . -d postgresql
+docker-compose build
+
+
+* Constroi imagem a partir de um Dockerfile
+docker build . -t api-pessoas
+
+
+* docker da imagem feita pelo arquivo Docker
+docker run -p 8086:8086 --name api-pessoas --link postgres94:postegres -d api-pessoas
+
+
+* Comandos
+docker system df
+docker container logs -f cont
+
+docker rmi $(docker images -q -a)
+
+* Apaga tudas as imagens
+docker rmi -f $(docker images -q -a)
+
+
+* Running mysql[Postgres, no seu caso]
+docker run -p 5433:5432 --name postgres96 --restart always -v /SERVICOS/postgres:/var/lib/postgresql/data -e POSTGRES_PASSWORD=v03admin% -d postgres:9.6 
+
+
+docker run --name db-mysql -e MYSQL_ROOT_PASSWORD=qwe123 -v /storage/docker/mysql-datadir:/var/lib/mysql  -p 3306:3306 -d mysql/mysql-server:latest
